@@ -13,8 +13,7 @@
     "scripts": {
         "dev-server": "encore dev-server --port 8080",
         "dev": "encore dev",
-        "watch": "encore dev --watch",
-        "build": "encore production --progress"
+        "watch": "encore dev --watch"
     },
     "dependencies": {
         "axios": "^0.18.0",
