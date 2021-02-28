@@ -27,6 +27,6 @@
         "react-toastify": "^7.0.3"
     },
     "engines": {
-        "node": "12.19.0"
+        "node": "10.16.0"
     }
 }
