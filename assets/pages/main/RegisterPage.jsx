@@ -46,7 +46,7 @@ const RegisterPage = ({ history }) => {
             history.replace("/login");
         } catch (error) {
             console.log(error.response);
-            const { violations } = error.response.data;
+            const { violations } = error.response.data ? error.response.data : '';
             if (violations) {
                 violations.forEach(violation => {
                     apiErrors[violation.propertyPath] = violation.message;
