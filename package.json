@@ -13,8 +13,7 @@
     "scripts": {
         "dev-server": "encore dev-server --port 8080",
         "dev": "encore dev",
-        "watch": "encore dev --watch",
-        "heroku-postbuild": "encore production"
+        "watch": "encore dev --watch"
     },
     "dependencies": {
         "axios": "^0.18.0",
@@ -27,6 +26,6 @@
         "react-toastify": "^7.0.3"
     },
     "engines": {
-        "node": "10.16.0"
+        "node": "12.19.0"
     }
 }
