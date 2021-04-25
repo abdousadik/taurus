@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UsersRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -67,6 +69,16 @@ class Users implements UserInterface
      * @Groups({"users_read"})
      */
     private $email;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="user")
+     */
+    private $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -173,6 +185,36 @@ class Users implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProducts(Product $products): self
+    {
+        if (!$this->products->contains($products)) {
+            $this->products[] = $products;
+            $products->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProducts(Product $products): self
+    {
+        if ($this->products->removeElement($products)) {
+            // set the owning side to null (unless already changed)
+            if ($products->getUser() === $this) {
+                $products->setUser(null);
+            }
+        }
 
         return $this;
     }

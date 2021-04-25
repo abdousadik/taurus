@@ -4,6 +4,7 @@ import { LOGIN_API } from '../config';
 
 function logout() {
     window.localStorage.removeItem("authToken");
+    window.localStorage.removeItem("userId");
     delete axios.defaults.headers["Authorization"];
 }
 
@@ -14,6 +15,7 @@ function authenticate(credentials) {
         .then(token => {
             window.localStorage.setItem("authToken", token);
             setAxiosToken(token);
+            window.localStorage.setItem("userId", parseJwt(token).userId);
         });
 }
 
@@ -42,6 +44,13 @@ function isAuthenticated() {
     }
 
     return false;
+}
+
+function parseJwt(token) {
+    if (!token) { return; }
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
 }
 
 export default {
