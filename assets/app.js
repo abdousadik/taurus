@@ -43,20 +43,22 @@ const App = () => {
 
     const NavbarWithRouter = withRouter(Navbar);
 
-    const userId = window.localStorage.getItem("userId");
+    if (isAuthenticated) {
+        const userId = window.localStorage.getItem("userId");
 
-    const fetchUser = async userId => {
-        try {
-            const { firstName, lastName, username, email } = await UsersAPI.find(userId);
-            setUser({ firstName, lastName, username, email });
-        } catch (error) {
-            console.log(error);
+        const fetchUser = async userId => {
+            try {
+                const { firstName, lastName, username, email } = await UsersAPI.find(userId);
+                setUser({ firstName, lastName, username, email });
+            } catch (error) {
+                console.log(error);
+            }
         }
-    }
 
-    useEffect(() => {
-        fetchUser(userId);
-    }, [userId])
+        useEffect(() => {
+            fetchUser(userId);
+        }, [userId])
+    }
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
