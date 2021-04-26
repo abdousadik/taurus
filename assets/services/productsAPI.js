@@ -9,20 +9,20 @@ function findAll() {
 
 function find(id) {
     return axios
-        .get("http://localhost:8000/api/products/" + id)
+        .get(PRODUCTS_API + "/" + id)
         .then(response => response.data);
 }
 
 function update(id, product) {
-    return axios.put("http://localhost:8000/api/products/" + id, product);
+    return axios.put(PRODUCTS_API + "/" + id, product);
 }
 
 function create(product) {
-    return axios.post("http://localhost:8000/api/products", { ...product, user: `/api/users/${product.user}` })
+    return axios.post(PRODUCTS_API, { ...product, user: `/api/users/${product.user}` })
 }
 
 function deleteProduct(id) {
-    return axios.delete("http://localhost:8000/api/products/" + id);
+    return axios.delete(PRODUCTS_API + "/" + id);
 }
 
 export default {

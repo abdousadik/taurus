@@ -9,7 +9,7 @@ function findAll() {
 
 function find(id) {
     return axios
-        .get("http://localhost:8000/api/users/" + id)
+        .get(USERS_API + "/" + id)
         .then(response => response.data);
 }
 
