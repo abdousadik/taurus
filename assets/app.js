@@ -27,8 +27,6 @@ import ProductsPage from './pages/main/ProductsPage';
 import ProductPage from './pages/main/ProductPage';
 import UsersAPI from './services/usersAPI';
 
-console.log("Hello World !!!");
-
 AuthAPI.setup();
 
 const App = () => {
@@ -41,24 +39,25 @@ const App = () => {
         email: ""
     });
 
-    const NavbarWithRouter = withRouter(Navbar);
 
-    if (isAuthenticated) {
-        const userId = window.localStorage.getItem("userId");
+    const userId = window.localStorage.getItem("userId");
 
-        const fetchUser = async userId => {
-            try {
-                const { firstName, lastName, username, email } = await UsersAPI.find(userId);
-                setUser({ firstName, lastName, username, email });
-            } catch (error) {
-                console.log(error);
-            }
+    const fetchUser = async userId => {
+        try {
+            const { firstName, lastName, username, email } = await UsersAPI.find(userId);
+            setUser({ firstName, lastName, username, email });
+        } catch (error) {
+            console.log(error);
         }
-
-        useEffect(() => {
-            fetchUser(userId);
-        }, [userId])
     }
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            fetchUser(userId);
+        }
+    }, [userId])
+
+    const NavbarWithRouter = withRouter(Navbar);
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
